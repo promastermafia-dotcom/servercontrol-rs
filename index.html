@@ -58,6 +58,15 @@ h1,h2,h3,h4{font-family:"Cinzel","Times New Roman",serif}
 .chart-svg{width:100%;height:auto;display:block}
 .chart-foot{display:flex;justify-content:space-between;font-size:11px;color:var(--sub);margin-top:8px}
 .chart-foot .ok{color:var(--good);font-weight:700}
+.tbl{border:2px solid var(--gold-dark);border-radius:6px;overflow:hidden;background:linear-gradient(170deg,#14141e,#0e0e16)}
+.tbl table{width:100%;border-collapse:collapse;font-size:13.5px}
+.tbl th{text-align:left;padding:11px 16px;background:linear-gradient(180deg,#1a1810,#12120c);border-bottom:2px solid var(--gold-dark);font-family:"Cinzel",serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--gold-dim)}
+.tbl td{padding:10px 16px;border-bottom:1px solid #1e1e2a;color:var(--txt)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:rgba(255,209,0,.03)}
+.ok{color:var(--good);font-weight:700}
+.spark{display:inline-block;vertical-align:middle;margin-left:8px}
+.spark polyline{fill:none;stroke-width:1.5}
 .foot{text-align:center;padding:40px 24px;border-top:1px solid #1e1e2a;color:var(--sub);font-size:13px}
 .foot b{color:var(--gold-dim);font-family:"Cinzel",serif}
 @media(max-width:700px){.medal-row{gap:12px}.medal{width:72px}.g2,.g3{grid-template-columns:1fr}}
@@ -97,7 +106,7 @@ h1,h2,h3,h4{font-family:"Cinzel","Times New Roman",serif}
 </div>
 <div class="grid g2">
 
-<div class="card"><div class="ico">&#128202;</div><h3>Дашборд</h3><p>Главный экран состояния — всё на одном взгляде.</p><ul>
+<div class="card"><div class="ico">&#128202;</div><h3>Дашборд <svg class="spark" width="60" height="16" viewBox="0 0 60 16"><polyline points="0,12 8,10 16,8 24,6 32,7 40,4 48,5 60,3" stroke="#1eb838"/></svg></h3><p>Главный экран состояния — всё на одном взгляде.</p><ul>
 <li>онлайн / лимит, мир, livez / readyz</li>
 <li>CPU сервера и хоста, RAM, диск, heap</li>
 <li>спарклайны за сутки, пиковые значения</li>
@@ -105,7 +114,7 @@ h1,h2,h3,h4{font-family:"Cinzel","Times New Roman",serif}
 <li>скорость канала, возраст бэкапа</li>
 <li>быстрый (5 с) и медленный (30 с) опросы</li></ul></div>
 
-<div class="card"><div class="ico">&#128101;</div><h3>Игроки онлайн</h3><p>Таблица с фильтрами и карточка в отдельном окне.</p><ul>
+<div class="card"><div class="ico">&#128101;</div><h3>Игроки онлайн <svg class="spark" width="60" height="16" viewBox="0 0 60 16"><polyline points="0,14 8,12 16,10 24,6 32,8 40,4 48,5 60,2" stroke="#1eb838"/></svg></h3><p>Таблица с фильтрами и карточка в отдельном окне.</p><ul>
 <li>сортировка, фильтры, группировки</li>
 <li>карточка: статы, спека, титулы, экипировка, таланты</li>
 <li><b>страна, город, провайдер</b> по IP (GeoLite2)</li>
@@ -158,7 +167,7 @@ h1,h2,h3,h4{font-family:"Cinzel","Times New Roman",serif}
 <li>ЛС живому игроку, кик / бан из строки</li>
 <li>шаблоны быстрых ответов, игнор / блок</li></ul></div>
 
-<div class="card"><div class="ico">&#128176;</div><h3>Экономика</h3><p>Полный контроль над Claudium и магазином.</p><ul>
+<div class="card"><div class="ico">&#128176;</div><h3>Экономика <svg class="spark" width="60" height="16" viewBox="0 0 60 16"><polyline points="0,14 8,11 16,12 24,8 32,9 40,5 48,6 60,2" stroke="#ffd100"/></svg></h3><p>Полный контроль над Claudium и магазином.</p><ul>
 <li>аккаунты и балансы Claudium</li>
 <li>начисление / списание с леджером</li>
 <li>каталог цен, ручные перебития, сброс</li>
@@ -171,7 +180,7 @@ h1,h2,h3,h4{font-family:"Cinzel","Times New Roman",serif}
 <li>копирование строки портала в буфер</li>
 <li>журнал событий</li></ul></div>
 
-<div class="card"><div class="ico">&#128200;</div><h3>Графики</h3><p>Фоновый сэмплер пишет историю в CSV (60 с).</p><ul>
+<div class="card"><div class="ico">&#128200;</div><h3>Графики <svg class="spark" width="60" height="16" viewBox="0 0 60 16"><polyline points="0,10 8,8 16,11 24,6 32,7 40,4 48,5 60,3" stroke="#5b8aff"/></svg></h3><p>Фоновый сэмплер пишет историю в CSV (60 с).</p><ul>
 <li>4 серии: игроки, CPU, RAM, диск + пинг</li>
 <li>диапазоны, дневные сводки</li>
 <li>онлайн по часам, доход Claudium</li>
@@ -303,6 +312,49 @@ h1,h2,h3,h4{font-family:"Cinzel","Times New Roman",serif}
 <div class="card"><div class="ico">&#128276;</div><h3>Алерты</h3><p>Пороговые события с дедупликацией, тостами и звуком.</p></div>
 <div class="card"><div class="ico">&#128225;</div><h3>События</h3><p>Вход / выход, низкий HP, up / down сервера.</p></div>
 <div class="card"><div class="ico">&#128268;</div><h3>Проба портов</h3><p>Постоянная проверка всех ключевых портов.</p></div>
+</div>
+
+<!-- ТАБЛИЦА ПОРТОВ -->
+<div class="tbl" style="margin-top:28px">
+<table>
+<thead>
+<tr><th>Порт</th><th>Сервис</th><th>Статус</th><th>Проверка</th></tr>
+</thead>
+<tbody>
+<tr><td><b>80</b></td><td>HTTP — сайт</td><td class="ok">&#9679; online</td><td>каждые 15 с</td></tr>
+<tr><td><b>443</b></td><td>HTTPS — сайт</td><td class="ok">&#9679; online</td><td>каждые 15 с</td></tr>
+<tr><td><b>8080</b></td><td>HTTP — API сервера</td><td class="ok">&#9679; online</td><td>каждые 5 с</td></tr>
+<tr><td><b>5432</b></td><td>PostgreSQL</td><td class="ok">&#9679; online</td><td>каждые 30 с</td></tr>
+<tr><td><b>8443</b></td><td>Grafana</td><td class="ok">&#9679; online</td><td>каждые 60 с</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- БАННЕР БЕЗОПАСНОСТИ -->
+<div class="banner" style="margin-top:28px">
+<div class="big">&#128737;</div>
+<div>
+<h3>Безопасность</h3>
+<p>Полный аудит безопасности 0.7.37: 14 уязвимостей исправлены, 0 осталось. Секреты зашифрованы DPAPI Windows. Закрытый набор команд — никакого произвольного shell. Секреты не попадают в логи.</p>
+</div>
+</div>
+
+<!-- БАННЕР ПОРТОВ -->
+<div class="banner">
+<div class="big">&#128268;</div>
+<div>
+<h3>Проба портов в фоне</h3>
+<p>Все ключевые порты проверяются постоянно. Если что-то упало — алерт с дедупликацией, тост и звук. Статусы видны на дашборде.</p>
+</div>
+</div>
+
+<!-- БАННЕР БЭКАПОВ -->
+<div class="banner">
+<div class="big">&#128190;</div>
+<div>
+<h3>Бэкапы и восстановление</h3>
+<p>pg_dump по расписанию, хранение с prune, восстановление БД и балансов Claudium в один клик. Возраст бэкапа виден на дашборде.</p>
+</div>
 </div>
 </div>
 
