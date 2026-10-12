@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ServerControl RS — панель управления игровым сервером</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#08080e;color:#e8e4d0;line-height:1.6;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Cinzel','Times New Roman',serif}
+
+.bg-glow{position:fixed;top:0;left:50%;transform:translateX(-50%);width:900px;height:500px;background:radial-gradient(ellipse,rgba(255,209,0,.06) 0%,transparent 70%);pointer-events:none;z-index:0}
+.bg-grid{position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
+
+.hero{position:relative;text-align:center;padding:100px 24px 70px;z-index:1}
+.crest{width:88px;height:88px;margin:0 auto 28px;border-radius:50%;border:3px solid #6f5a2a;outline:1px solid #000;background:radial-gradient(circle at 35% 30%,#3a3a4e,#14141c);box-shadow:0 4px 20px rgba(0,0,0,.8),inset 0 0 0 1px rgba(255,234,140,.35),inset 0 0 20px rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;font-size:38px}
+h1{font-size:clamp(36px,6vw,64px);font-weight:700;color:#ffd100;text-shadow:0 2px 8px #000,0 0 40px rgba(255,209,0,.12);letter-spacing:3px;margin-bottom:16px}
+.hero-sub{font-size:18px;color:#8a8670;max-width:600px;margin:0 auto 36px}
+.hero-pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.pill{padding:8px 20px;border-radius:4px;background:linear-gradient(180deg,#1e1e2a,#14141e);border:1px solid #6f5a2a;font-size:13px;color:#c8a838;font-weight:600}
+
+.stats{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;padding:40px 24px;z-index:1;position:relative;border-bottom:1px solid #1a1a28}
+.stat{text-align:center}
+.stat .num{font-family:'Cinzel',serif;font-size:36px;font-weight:700;color:#ffd100;text-shadow:0 1px 3px #000}
+.stat .lbl{font-size:11px;color:#8a8670;text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+
+.wrap{max-width:1080px;margin:0 auto;padding:64px 24px;position:relative;z-index:1}
+.sec-label{display:inline-block;font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#c8a838;border:1px solid #6f5a2a;padding:4px 16px;border-radius:3px;margin-bottom:14px;background:linear-gradient(180deg,#1a1810,#12120c)}
+h2{font-size:28px;font-weight:700;color:#ffd100;text-shadow:0 1px 4px #000;margin-bottom:8px}
+.sec-desc{font-size:15px;color:#8a8670;margin-bottom:36px;max-width:600px}
+
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.g3{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+
+.card{background:linear-gradient(170deg,#16161f,#101018);border:1px solid #2a2a3a;border-radius:6px;padding:24px;position:relative;transition:all .25s}
+.card:hover{border-color:#6f5a2a;transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#6f5a2a,transparent);opacity:.5}
+.ico{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px;background:radial-gradient(circle at 40% 35%,#2a2410,#14120a);border:1px solid #6f5a2a}
+.card h3{font-size:16px;font-weight:700;color:#ffd100;margin-bottom:6px}
+.card>p{font-size:13.5px;color:#8a8670}
+.card ul{list-style:none;margin-top:10px}
+.card ul li{font-size:13px;color:#b0aa90;padding:4px 0 4px 18px;position:relative}
+.card ul li::before{content:"\25C6";position:absolute;left:0;color:#6f5a2a;font-size:8px;top:8px}
+.card ul li b{color:#c8a838}
+
+.banner{border:2px solid #6f5a2a;border-radius:8px;padding:32px;margin:36px 0;display:flex;align-items:center;gap:20px;background:linear-gradient(170deg,#1a1810,#12120c);box-shadow:inset 0 0 30px rgba(0,0,0,.4)}
+.banner .big{font-size:36px;flex-shrink:0}
+.banner h3{font-size:18px;color:#ffd100;margin-bottom:6px}
+.banner p{font-size:14px;color:#8a8670}
+
+.cta{text-align:center;padding:80px 24px;position:relative;z-index:1}
+.cta h2{font-size:32px;margin-bottom:12px}
+.cta p{color:#8a8670;font-size:16px;margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto}
+.btn{display:inline-block;padding:16px 40px;font-family:'Cinzel',serif;font-size:16px;font-weight:700;letter-spacing:1px;text-decoration:none;border-radius:6px;cursor:pointer;transition:all .2s;border:none}
+.btn-main{background:linear-gradient(180deg,#ffd100,#c8a838);color:#111;box-shadow:0 4px 16px rgba(255,209,0,.25)}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(255,209,0,.35)}
+
+.footer{border-top:1px solid #1a1a28;text-align:center;padding:36px 24px;color:#8a8670;font-size:13px;position:relative;z-index:1}
+.footer b{color:#c8a838;font-family:'Cinzel',serif}
+
+@media(max-width:700px){.g2,.g3{grid-template-columns:1fr}.stats{gap:16px}.stat .num{font-size:28px}.banner{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+<div class="bg-grid"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="crest">&#9876;</div>
+  <h1>ServerControl RS</h1>
+  <p class="hero-sub">Профессиональная настольная панель управления приватным игровым сервером. Мониторинг, модерация, экономика, новости — всё в одном окне.</p>
+  <div class="hero-pills">
+    <div class="pill">Windows 10 / 11</div>
+    <div class="pill">Мгновенный отклик</div>
+    <div class="pill">Безопасно</div>
+    <div class="pill">15 вкладок</div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="num">15</div><div class="lbl">вкладок</div></div>
+  <div class="stat"><div class="num">106</div><div class="lbl">команд</div></div>
+  <div class="stat"><div class="num">1149</div><div class="lbl">тестов</div></div>
+  <div class="stat"><div class="num">0</div><div class="lbl">уязвимостей</div></div>
+</div>
+
+<!-- ВОЗМОЖНОСТИ -->
+<div class="wrap">
+  <div class="sec-label">Возможности</div>
+  <h2>Что умеет панель</h2>
+  <p class="sec-desc">Полный операторский цикл: от дашборда до восстановления базы данных.</p>
+  <div class="grid g2">
+
+    <div class="card"><div class="ico">&#128202;</div><h3>Дашборд</h3><p>Главный экран состояния сервера.</p><ul>
+      <li>онлайн, CPU, RAM, диск, тикрейт</li>
+      <li>спарклайны и пиковые значения</li>
+      <li>статусы livez / readyz</li></ul></div>
+
+    <div class="card"><div class="ico">&#128101;</div><h3>Игроки онлайн</h3><p>Таблица с фильтрами и карточка.</p><ul>
+      <li>страна и город по IP</li>
+      <li>ЛС / кик / бан из строки</li>
+      <li>экспорт в CSV</li></ul></div>
+
+    <div class="card"><div class="ico">&#128506;</div><h3>Карта зон</h3><p>Игровая карта с живыми данными.</p><ul>
+      <li>зоны с уровнями и владельцами</li>
+      <li>точки игроков и порталы</li></ul></div>
+
+    <div class="card"><div class="ico">&#128220;</div><h3>Логи сервера</h3><p>Семь логов с фильтрами и поиском.</p><ul>
+      <li>фильтр по уровню и категории</li>
+      <li>перевод RU / EN, режим «следить»</li></ul></div>
+
+    <div class="card"><div class="ico">&#127918;</div><h3>Управление</h3><p>Стоп, старт, бэкапы, восстановление.</p><ul>
+      <li>бэкап БД и восстановление</li>
+      <li>плановый рестарт с отменой</li>
+      <li>расписание по дням недели</li></ul></div>
+
+    <div class="card"><div class="ico">&#128737;</div><h3>Антибот</h3><p>Подозрительные с уликами и картой.</p><ul>
+      <li>конфигурация детектора</li>
+      <li>блокировка от мировых квестов</li>
+      <li>похожие ники, топы экономики</li></ul></div>
+
+    <div class="card"><div class="ico">&#128226;</div><h3>Новости</h3><p>Rich-text объявления с расписанием.</p><ul>
+      <li>форматирование и картинка</li>
+      <li>всем / зона / гильдия</li>
+      <li>автоматическое расписание</li></ul></div>
+
+    <div class="card"><div class="ico">&#128172;</div><h3>Чат</h3><p>Игровая переписка с уведомлениями.</p><ul>
+      <li>фильтры, непрочитанные, звук</li>
+      <li>ЛС, кик / бан из строки</li></ul></div>
+
+    <div class="card"><div class="ico">&#128176;</div><h3>Экономика</h3><p>Полный контроль над Claudium.</p><ul>
+      <li>балансы, гранты, леджер</li>
+      <li>каталог цен, топы, магазин</li></ul></div>
+
+    <div class="card"><div class="ico">&#128200;</div><h3>Графики</h3><p>История метрик за любой период.</p><ul>
+      <li>игроки, CPU, RAM, диск</li>
+      <li>дневные сводки и экспорт</li></ul></div>
+
+    <div class="card"><div class="ico">&#128269;</div><h3>Аудит</h3><p>Журнал действий с фильтрами.</p><ul>
+      <li>топ IP и топ действий</li>
+      <li>подсветка нового, CSV</li></ul></div>
+
+    <div class="card"><div class="ico">&#9881;</div><h3>Настройки</h3><p>Профили, расписания, оповещения.</p><ul>
+      <li>профили нескольких серверов</li>
+      <li>пороги алертов, webhook</li></ul></div>
+
+  </div>
+</div>
+
+<!-- МОНИТОРИНГ -->
+<div class="wrap" style="padding-top:0">
+  <div class="sec-label">Мониторинг</div>
+  <h2>Всегда в курсе</h2>
+  <p class="sec-desc">Фоновые задачи работают незаметно, но оповещают обо всём.</p>
+  <div class="grid g3">
+    <div class="card"><div class="ico">&#128276;</div><h3>Алерты</h3><p>Пороговые события с дедупликацией, тостами и звуком.</p></div>
+    <div class="card"><div class="ico">&#128225;</div><h3>События</h3><p>Вход / выход, низкий HP, up / down сервера.</p></div>
+    <div class="card"><div class="ico">&#128268;</div><h3>Проба портов</h3><p>Постоянная проверка всех ключевых портов.</p></div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta">
+  <div class="sec-label">Готово к работе</div>
+  <h2>Один инструмент — весь сервер</h2>
+  <p>Всё, что нужно оператору приватного сервера, в одном окне. Без лишнего.</p>
+  <a class="btn btn-main" href="#">Узнать больше</a>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p><b>ServerControl RS</b> &middot; v0.7.37 &middot; для Windows 10 / 11</p>
+  <p style="margin-top:6px">Панель управления приватным игровым сервером.</p>
+</div>
+
+</body>
+</html>
