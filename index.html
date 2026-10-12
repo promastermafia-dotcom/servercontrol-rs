@@ -9,104 +9,165 @@
 @font-face{font-family:"Cinzel";font-style:normal;font-weight:400 700;font-display:swap;src:url("fonts/cinzel-400-700-latin.woff2") format("woff2")}
 :root{--gold:#ffd100;--gold-dim:#c8a838;--gold-dark:#6f5a2a;--txt:#e8e4d0;--sub:#8a8670;--good:#1eb838;--bad:#e04040;--warn:#ffd166}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:"Segoe UI",system-ui,sans-serif;background:radial-gradient(ellipse 80% 50% at 50% 0%,#1a1810 0%,transparent 60%),linear-gradient(180deg,#0c0c14,#08080e);color:var(--txt);line-height:1.6}
-h1,h2,h3,h4{font-family:"Cinzel","Times New Roman",serif}
-.ui-window{border:2px solid var(--gold-dark);border-radius:6px;outline:1px solid #000;box-shadow:0 2px 16px #000c,inset 0 0 24px #0006,inset 0 1px 0 #ffffff14;background:linear-gradient(170deg,#15151ff2,#0b0b12f2 60%,#08080df2)}
-.hero{text-align:center;padding:72px 24px 56px;position:relative}
-.hero::after{content:"";position:absolute;bottom:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dark),transparent)}
-.crest{width:72px;height:72px;margin:0 auto 20px;border-radius:50%;border:3px solid var(--gold-dark);outline:1px solid #000;background:radial-gradient(circle at 35% 30%,#3a3a4e,#14141c);box-shadow:0 3px 10px rgba(0,0,0,.8),inset 0 0 0 1px rgba(255,234,140,.35),inset 0 0 14px rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;font-size:32px}
-.hero h1{font-size:clamp(34px,5.5vw,58px);font-weight:700;color:var(--gold);text-shadow:0 2px 4px #000,0 0 30px rgba(255,209,0,.15);letter-spacing:2px;margin-bottom:10px}
-.hero .sub{font-size:16px;color:var(--sub);max-width:620px;margin:0 auto 28px}
+body{font-family:"Segoe UI",system-ui,sans-serif;background:#08080e;color:var(--txt);line-height:1.6;overflow-x:hidden}
+
+/* === BACKGROUND FX === */
+.bg-layer{position:fixed;inset:0;pointer-events:none;z-index:0}
+.bg-glow{background:radial-gradient(ellipse 80% 50% at 50% 0%,#1a1810 0%,transparent 60%)}
+.bg-grid{background-image:linear-gradient(rgba(255,209,0,.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,209,0,.012) 1px,transparent 1px);background-size:60px 60px}
+.bg-particles{overflow:hidden}
+.particle{position:absolute;width:2px;height:2px;background:var(--gold);border-radius:50%;opacity:0;animation:floatUp linear infinite}
+@keyframes floatUp{0%{opacity:0;transform:translateY(100vh) scale(0)}10%{opacity:.6}90%{opacity:.6}100%{opacity:0;transform:translateY(-10vh) scale(1)}}
+
+/* === HERO === */
+.hero{text-align:center;padding:100px 24px 70px;position:relative;z-index:1}
+.hero::after{content:"";position:absolute;bottom:0;left:5%;right:5%;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dark),transparent)}
+.crest{width:88px;height:88px;margin:0 auto 28px;border-radius:50%;border:3px solid var(--gold-dark);outline:1px solid #000;background:radial-gradient(circle at 35% 30%,#3a3a4e,#14141c);box-shadow:0 4px 20px rgba(0,0,0,.8),inset 0 0 0 1px rgba(255,234,140,.35),inset 0 0 20px rgba(0,0,0,.7),0 0 60px rgba(255,209,0,.08);display:flex;align-items:center;justify-content:center;font-size:40px;animation:crestPulse 4s ease-in-out infinite}
+@keyframes crestPulse{0%,100%{box-shadow:0 4px 20px rgba(0,0,0,.8),inset 0 0 0 1px rgba(255,234,140,.35),inset 0 0 20px rgba(0,0,0,.7),0 0 60px rgba(255,209,0,.08)}50%{box-shadow:0 4px 20px rgba(0,0,0,.8),inset 0 0 0 1px rgba(255,234,140,.5),inset 0 0 20px rgba(0,0,0,.7),0 0 80px rgba(255,209,0,.15)}}
+h1{font-family:"Cinzel",serif;font-size:clamp(38px,6.5vw,72px);font-weight:700;color:#ffd100;text-shadow:0 2px 8px #000,0 0 40px rgba(255,209,0,.12),0 0 80px rgba(255,209,0,.06);letter-spacing:4px;margin-bottom:16px;animation:titleGlow 3s ease-in-out infinite}
+@keyframes titleGlow{0%,100%{text-shadow:0 2px 8px #000,0 0 40px rgba(255,209,0,.12)}50%{text-shadow:0 2px 8px #000,0 0 60px rgba(255,209,0,.2),0 0 120px rgba(255,209,0,.08)}}
+.hero-sub{font-size:17px;color:#8a8670;max-width:620px;margin:0 auto 36px}
 .hero-pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.pill{padding:7px 16px;border-radius:4px;background:linear-gradient(180deg,#1e1e2a,#14141e);border:1px solid var(--gold-dark);font-size:13px;color:var(--gold-dim);font-weight:600}
+.pill{padding:8px 20px;border-radius:4px;background:linear-gradient(180deg,#1e1e2a,#14141e);border:1px solid var(--gold-dark);font-size:13px;color:var(--gold-dim);font-weight:600;transition:all .3s}
+.pill:hover{border-color:var(--gold);box-shadow:0 0 20px rgba(255,209,0,.15)}
 .pill b{color:var(--gold)}
-.medal-row{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;padding:32px 24px;border-bottom:1px solid #1e1e2a}
-.medal{width:92px;text-align:center}
-.medal .circle{width:64px;height:64px;margin:0 auto 8px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#4a3a14,#241c08);border:2px solid var(--gold-dim);box-shadow:0 0 0 1px #000,0 2px 8px rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;font-family:"Cinzel",serif;font-weight:700;font-size:20px;color:var(--gold);text-shadow:0 1px 2px #000}
-.medal .lbl{font-size:10px;color:var(--sub);text-transform:uppercase;letter-spacing:.8px}
-.wrap{max-width:1080px;margin:0 auto;padding:52px 24px}
-.sec-head{margin-bottom:32px}
-.orn{display:inline-block;font-family:"Cinzel",serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-dim);border:1px solid var(--gold-dark);padding:3px 14px;border-radius:3px;margin-bottom:12px;background:linear-gradient(180deg,#1a1810,#12120c)}
-.sec-head h2{font-size:26px;font-weight:700;color:var(--gold);text-shadow:0 1px 3px #000}
-.sec-head p{font-size:14px;color:var(--sub);margin-top:4px;max-width:640px}
-.grid{display:grid;gap:14px}
+
+/* === MEDALS === */
+.medal-row{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;padding:40px 24px;border-bottom:1px solid #1a1a28;position:relative;z-index:1}
+.medal{width:100px;text-align:center;transition:transform .3s}
+.medal:hover{transform:translateY(-4px)}
+.medal .circle{width:72px;height:72px;margin:0 auto 10px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#4a3a14,#241c08);border:2px solid var(--gold-dim);box-shadow:0 0 0 1px #000,0 2px 8px rgba(0,0,0,.6),0 0 30px rgba(255,209,0,.06);display:flex;align-items:center;justify-content:center;font-family:"Cinzel",serif;font-weight:700;font-size:22px;color:var(--gold);text-shadow:0 1px 2px #000;transition:all .3s}
+.medal:hover .circle{border-color:var(--gold);box-shadow:0 0 0 1px #000,0 2px 8px rgba(0,0,0,.6),0 0 40px rgba(255,209,0,.15)}
+.medal .lbl{font-size:10px;color:var(--sub);text-transform:uppercase;letter-spacing:1px}
+
+/* === SECTIONS === */
+.wrap{max-width:1100px;margin:0 auto;padding:60px 24px;position:relative;z-index:1}
+.sec-head{margin-bottom:36px}
+h2{font-family:"Cinzel",serif;font-size:28px;font-weight:700;color:var(--gold);text-shadow:0 1px 4px #000;margin-bottom:8px}
+.sec-head p{font-size:14px;color:var(--sub);max-width:640px}
+
+/* === ORNAMENT LABELS === */
+.orn{display:inline-block;font-family:"Cinzel",serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-dim);border:1px solid var(--gold-dark);padding:5px 18px;border-radius:3px;margin-bottom:14px;background:linear-gradient(180deg,#1a1810,#12120c);position:relative}
+.orn::before,.orn::after{content:"\2726";position:absolute;top:50%;transform:translateY(-50%);font-size:8px;color:var(--gold-dark)}
+.orn::before{left:-14px}.orn::after{right:-14px}
+
+/* === DIVIDER === */
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--gold-dark),transparent);margin:0 auto;max-width:800px;position:relative;z-index:1}
+.divider::after{content:"\2726";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#08080e;padding:0 12px;color:var(--gold-dark);font-size:10px}
+
+/* === GRID CARDS === */
+.grid{display:grid;gap:16px}
 .g2{grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
-.g3{grid-template-columns:repeat(auto-fill,minmax(270px,1fr))}
-.card{background:linear-gradient(170deg,#16161f,#101018);border:1px solid #2a2a3a;border-radius:4px;padding:20px;position:relative;transition:border-color .2s}
-.card:hover{border-color:var(--gold-dark)}
-.card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold-dark),transparent);opacity:.5}
-.ico{width:40px;height:40px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px;background:radial-gradient(circle at 40% 35%,#2a2410,#14120a);border:1px solid var(--gold-dark)}
-.card h3{font-size:15px;font-weight:700;color:var(--gold);margin-bottom:6px}
+.g3{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.card{background:linear-gradient(170deg,#16161f,#101018);border:1px solid #2a2a3a;border-radius:6px;padding:22px;position:relative;transition:all .3s}
+.card:hover{border-color:var(--gold-dark);transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.5),0 0 40px rgba(255,209,0,.04)}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold-dark),transparent);opacity:.5;transition:opacity .3s}
+.card:hover::before{opacity:1}
+.card::after{content:"";position:absolute;inset:0;border-radius:6px;background:radial-gradient(circle at 50% 0%,rgba(255,209,0,.03) 0%,transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+.card:hover::after{opacity:1}
+.ico{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px;background:radial-gradient(circle at 40% 35%,#2a2410,#14120a);border:1px solid var(--gold-dark);transition:all .3s}
+.card:hover .ico{border-color:var(--gold);box-shadow:0 0 20px rgba(255,209,0,.1)}
+.card h3{font-family:"Cinzel",serif;font-size:15px;font-weight:700;color:var(--gold);margin-bottom:6px}
 .card>p{font-size:13px;color:var(--sub)}
-.card ul{list-style:none;margin-top:8px}
-.card ul li{font-size:12.5px;color:#b0aa90;padding:3px 0 3px 16px;position:relative}
-.card ul li::before{content:"\25C6";position:absolute;left:0;color:var(--gold-dark);font-size:8px;top:7px}
+.card ul{list-style:none;margin-top:10px}
+.card ul li{font-size:12.5px;color:#b0aa90;padding:3px 0 3px 18px;position:relative}
+.card ul li::before{content:"\25C6";position:absolute;left:0;color:var(--gold-dark);font-size:7px;top:8px}
 .card ul li b{color:var(--gold-dim)}
-.banner{border:2px solid var(--gold-dark);border-radius:6px;padding:24px 28px;margin:28px 0;display:flex;align-items:flex-start;gap:16px;background:linear-gradient(170deg,#1a1810,#12120c);box-shadow:inset 0 0 20px rgba(0,0,0,.4)}
-.banner .big{font-size:28px;flex-shrink:0}
-.banner h3{font-size:16px;color:var(--gold);margin-bottom:4px}
-.banner p{font-size:13.5px;color:var(--sub)}
-.cta{text-align:center;padding:64px 24px;border-top:1px solid #1e1e2a}
-.cta h2{font-size:28px;color:var(--gold);margin-bottom:10px;text-shadow:0 1px 3px #000}
-.cta p{color:var(--sub);font-size:14px;margin-bottom:24px;max-width:480px;margin-left:auto;margin-right:auto}
-.chart-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-bottom:28px}
-.chart-box{background:linear-gradient(170deg,#16161f,#101018);border:1px solid #2a2a3a;border-radius:4px;padding:16px;position:relative;transition:border-color .2s}
-.chart-box:hover{border-color:var(--gold-dark)}
+
+/* === SPARKLINES === */
+.spark{display:inline-block;vertical-align:middle;margin-left:8px;opacity:.8}
+.spark polyline{fill:none;stroke-width:1.5}
+.spark circle{animation:sparkDot 2s ease-in-out infinite}
+@keyframes sparkDot{0%,100%{r:2.5}50%{r:4}}
+
+/* === CHARTS === */
+.chart-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:32px}
+.chart-box{background:linear-gradient(170deg,#16161f,#101018);border:1px solid #2a2a3a;border-radius:6px;padding:18px;position:relative;transition:all .3s}
+.chart-box:hover{border-color:var(--gold-dark);box-shadow:0 8px 24px rgba(0,0,0,.4)}
 .chart-box::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold-dark),transparent);opacity:.5}
-.chart-title{font-size:13px;font-weight:700;color:var(--gold);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.chart-title{font-family:"Cinzel",serif;font-size:13px;font-weight:700;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .chart-title span{font-size:16px}
 .chart-svg{width:100%;height:auto;display:block}
-.chart-foot{display:flex;justify-content:space-between;font-size:11px;color:var(--sub);margin-top:8px}
+.chart-foot{display:flex;justify-content:space-between;font-size:11px;color:var(--sub);margin-top:10px}
 .chart-foot .ok{color:var(--good);font-weight:700}
-.tbl{border:2px solid var(--gold-dark);border-radius:6px;overflow:hidden;background:linear-gradient(170deg,#14141e,#0e0e16)}
+
+/* === TABLE === */
+.tbl{border:2px solid var(--gold-dark);border-radius:6px;overflow:hidden;background:linear-gradient(170deg,#14141e,#0e0e16);margin-top:28px}
 .tbl table{width:100%;border-collapse:collapse;font-size:13.5px}
-.tbl th{text-align:left;padding:11px 16px;background:linear-gradient(180deg,#1a1810,#12120c);border-bottom:2px solid var(--gold-dark);font-family:"Cinzel",serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--gold-dim)}
-.tbl td{padding:10px 16px;border-bottom:1px solid #1e1e2a;color:var(--txt)}
+.tbl th{text-align:left;padding:12px 18px;background:linear-gradient(180deg,#1a1810,#12120c);border-bottom:2px solid var(--gold-dark);font-family:"Cinzel",serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold-dim)}
+.tbl td{padding:11px 18px;border-bottom:1px solid #1e1e2a;color:var(--txt);transition:background .2s}
 .tbl tr:last-child td{border-bottom:none}
-.tbl tr:hover td{background:rgba(255,209,0,.03)}
+.tbl tr:hover td{background:rgba(255,209,0,.04)}
 .ok{color:var(--good);font-weight:700}
-.spark{display:inline-block;vertical-align:middle;margin-left:8px}
-.spark polyline{fill:none;stroke-width:1.5}
-.foot{text-align:center;padding:40px 24px;border-top:1px solid #1e1e2a;color:var(--sub);font-size:13px}
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--good);margin-right:6px;box-shadow:0 0 8px var(--good);animation:dotPulse 2s ease-in-out infinite}
+@keyframes dotPulse{0%,100%{opacity:1;box-shadow:0 0 8px var(--good)}50%{opacity:.5;box-shadow:0 0 16px var(--good)}}
+
+/* === BANNERS === */
+.banner{border:2px solid var(--gold-dark);border-radius:6px;padding:26px 30px;margin:24px 0;display:flex;align-items:flex-start;gap:18px;background:linear-gradient(170deg,#1a1810,#12120c);box-shadow:inset 0 0 30px rgba(0,0,0,.4);transition:all .3s}
+.banner:hover{box-shadow:inset 0 0 30px rgba(0,0,0,.4),0 0 40px rgba(255,209,0,.04)}
+.banner .big{font-size:32px;flex-shrink:0}
+.banner h3{font-family:"Cinzel",serif;font-size:17px;color:var(--gold);margin-bottom:6px}
+.banner p{font-size:13.5px;color:var(--sub)}
+
+/* === CTA === */
+.cta{text-align:center;padding:80px 24px;border-top:1px solid #1a1a28;position:relative;z-index:1}
+.cta h2{font-size:32px;margin-bottom:12px}
+.cta p{color:var(--sub);font-size:15px;margin-bottom:36px;max-width:500px;margin-left:auto;margin-right:auto}
+
+/* === FOOTER === */
+.foot{text-align:center;padding:44px 24px;border-top:1px solid #1a1a28;color:var(--sub);font-size:13px;position:relative;z-index:1}
 .foot b{color:var(--gold-dim);font-family:"Cinzel",serif}
-@media(max-width:700px){.medal-row{gap:12px}.medal{width:72px}.g2,.g3{grid-template-columns:1fr}}
+.foot .ver{display:inline-block;padding:4px 14px;border:1px solid var(--gold-dark);border-radius:3px;font-family:"Cinzel",serif;font-size:11px;color:var(--gold-dim);letter-spacing:1px;margin-top:8px}
+
+/* === SCROLL REVEAL === */
+.reveal{opacity:0;transform:translateY(30px);transition:all .6s cubic-bezier(.25,.46,.45,.94)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:700px){.medal-row{gap:14px}.medal{width:78px}.g2,.g3{grid-template-columns:1fr}.banner{flex-direction:column;text-align:center}.hero{padding:60px 16px 40px}}
 </style>
 </head>
 <body>
-<div class="ui-window" style="border-radius:0;border-left:none;border-right:none;outline:none">
 
+<div class="bg-layer bg-glow"></div>
+<div class="bg-layer bg-grid"></div>
+<div class="bg-layer bg-particles" id="particles"></div>
+
+<!-- HERO -->
 <div class="hero">
-<div class="crest">&#9876;</div>
-<h1>ServerControl RS</h1>
-<p class="sub">Профессиональная настольная панель управления приватным сервером World of Claudecraft. Всё, что нужно оператору — в одном окне.</p>
-<div class="hero-pills">
-<div class="pill">Windows 10 / 11</div>
-<div class="pill">Rust + Tauri</div>
-<div class="pill"><b>0</b> уязвимостей</div>
-<div class="pill"><b>1 149</b> тестов</div>
-<div class="pill"><b>15</b> вкладок &middot; <b>106</b> команд</div>
-</div>
+  <div class="crest">&#9876;</div>
+  <h1>ServerControl RS</h1>
+  <p class="hero-sub">Профессиональная настольная панель управления приватным сервером World of Claudecraft. Всё, что нужно оператору — в одном окне.</p>
+  <div class="hero-pills">
+    <div class="pill">Windows 10 / 11</div>
+    <div class="pill">Rust + Tauri</div>
+    <div class="pill"><b>0</b> уязвимостей</div>
+    <div class="pill"><b>1 149</b> тестов</div>
+    <div class="pill"><b>15</b> вкладок &middot; <b>106</b> команд</div>
+  </div>
 </div>
 
+<!-- MEDALS -->
 <div class="medal-row">
-<div class="medal"><div class="circle">15</div><div class="lbl">вкладок</div></div>
-<div class="medal"><div class="circle">106</div><div class="lbl">команд</div></div>
-<div class="medal"><div class="circle">424</div><div class="lbl">Rust-тестов</div></div>
-<div class="medal"><div class="circle">725</div><div class="lbl">фронт-тестов</div></div>
-<div class="medal"><div class="circle">0</div><div class="lbl">уязвимостей</div></div>
-<div class="medal"><div class="circle">14</div><div class="lbl">фикс. аудита</div></div>
+  <div class="medal"><div class="circle">15</div><div class="lbl">вкладок</div></div>
+  <div class="medal"><div class="circle">106</div><div class="lbl">команд</div></div>
+  <div class="medal"><div class="circle">424</div><div class="lbl">Rust-тестов</div></div>
+  <div class="medal"><div class="circle">725</div><div class="lbl">фронт-тестов</div></div>
+  <div class="medal"><div class="circle">0</div><div class="lbl">уязвимостей</div></div>
+  <div class="medal"><div class="circle">14</div><div class="lbl">фикс. аудита</div></div>
 </div>
+
+<div class="divider"></div>
 
 <!-- ВОЗМОЖНОСТИ -->
 <div class="wrap">
-<div class="sec-head">
+<div class="sec-head reveal">
 <div class="orn">Возможности</div>
 <h2>15 вкладок — весь сервер под контролем</h2>
 <p>Полный операторский цикл: от дашборда до восстановления базы данных.</p>
 </div>
 <div class="grid g2">
 
-<div class="card"><div class="ico">&#128202;</div><h3>Дашборд <svg class="spark" width="60" height="16" viewBox="0 0 60 16"><polyline points="0,12 8,10 16,8 24,6 32,7 40,4 48,5 60,3" stroke="#1eb838"/></svg></h3><p>Главный экран состояния — всё на одном взгляде.</p><ul>
+<div class="card reveal"><div class="ico">&#128202;</div><h3>Дашборд <svg class="spark" width="60" height="16" viewBox="0 0 60 16"><polyline points="0,12 8,10 16,8 24,6 32,7 40,4 48,5 60,3" stroke="#1eb838"/><circle cx="60" cy="3" r="2.5" fill="#1eb838"/></svg></h3><p>Главный экран состояния — всё на одном взгляде.</p><ul>
 <li>онлайн / лимит, мир, livez / readyz</li>
 <li>CPU сервера и хоста, RAM, диск, heap</li>
 <li>спарклайны за сутки, пиковые значения</li>
@@ -114,28 +175,28 @@ h1,h2,h3,h4{font-family:"Cinzel","Times New Roman",serif}
 <li>скорость канала, возраст бэкапа</li>
 <li>быстрый (5 с) и медленный (30 с) опросы</li></ul></div>
 
-<div class="card"><div class="ico">&#128101;</div><h3>Игроки онлайн <svg class="spark" width="60" height="16" viewBox="0 0 60 16"><polyline points="0,14 8,12 16,10 24,6 32,8 40,4 48,5 60,2" stroke="#1eb838"/></svg></h3><p>Таблица с фильтрами и карточка в отдельном окне.</p><ul>
+<div class="card reveal"><div class="ico">&#128101;</div><h3>Игроки онлайн <svg class="spark" width="60" height="16" viewBox="0 0 60 16"><polyline points="0,14 8,12 16,10 24,6 32,8 40,4 48,5 60,2" stroke="#1eb838"/><circle cx="60" cy="2" r="2.5" fill="#1eb838"/></svg></h3><p>Таблица с фильтрами и карточка в отдельном окне.</p><ul>
 <li>сортировка, фильтры, группировки</li>
-<li>карточка: статы, спека, титулы, экипировка, таланты</li>
-<li><b>страна, город, провайдер</b> по IP (GeoLite2)</li>
+<li>карточка: статы, спека, титулы, экипировка</li>
+<li><b>страна, город, провайдер</b> по IP</li>
 <li>ЛС / кик / бан из строки</li>
 <li>отслеживание игрока</li>
 <li>копирование IP / PID / ника, экспорт CSV</li></ul></div>
 
-<div class="card"><div class="ico">&#128506;</div><h3>Карта зон</h3><p>Игровая карта континента с живыми данными.</p><ul>
+<div class="card reveal"><div class="ico">&#128506;</div><h3>Карта зон</h3><p>Игровая карта континента с живыми данными.</p><ul>
 <li>зоны по игровой проекции с уровнями</li>
 <li>точки игроков (только открытие мира)</li>
 <li>открытые порталы с рангом</li>
 <li>зум, сдвиг, список зон с владельцами</li></ul></div>
 
-<div class="card"><div class="ico">&#128220;</div><h3>Логи сервера</h3><p>Семь логов с удобным просмотром и фильтрами.</p><ul>
+<div class="card reveal"><div class="ico">&#128220;</div><h3>Логи сервера</h3><p>Семь логов с удобным просмотром и фильтрами.</p><ul>
 <li>игровой, лаунчер, аудит, PostgreSQL, мосты</li>
 <li>фильтр по уровню и категории</li>
 <li>перевод RU / EN, поиск</li>
 <li>режим «следить», разворот key=value</li>
-<li>копирование, сохранение, экспорт всех логов</li></ul></div>
+<li>копирование, сохранение, экспорт</li></ul></div>
 
-<div class="card"><div class="ico">&#127918;</div><h3>Управление сервером</h3><p>Закрытый набор команд — безопасно и предсказуемо.</p><ul>
+<div class="card reveal"><div class="ico">&#127918;</div><h3>Управление сервером</h3><p>Закрытый набор команд — безопасно и предсказуемо.</p><ul>
 <li>стоп / старт / рестарт листенера</li>
 <li>бэкап БД (pg_dump), список, удаление, prune</li>
 <li><b>восстановление БД и балансов Claudium</b></li>
@@ -143,31 +204,31 @@ h1,h2,h3,h4{font-family:"Cinzel","Times New Roman",serif}
 <li>ротация и чистка логов (белый список)</li>
 <li>плановый рестарт с отсчётом и отменой</li>
 <li>бэкап и рестарт по расписанию</li>
-<li>баны: выдача / снятие, бан по имени с киком</li></ul></div>
+<li>баны: выдача / снятие, бан по имени</li></ul></div>
 
-<div class="card"><div class="ico">&#128737;</div><h3>Антибот</h3><p>Живые данные сервера, никаких выдуманных чисел.</p><ul>
+<div class="card reveal"><div class="ico">&#128737;</div><h3>Антибот</h3><p>Живые данные сервера, никаких выдуманных чисел.</p><ul>
 <li>таблица подозрительных с уликами и картой</li>
 <li>7 секций конфигурации детектора</li>
 <li>IP-бан, чит-марк</li>
-<li><b>блокировка от мировых квестов</b> (мягче бана)</li>
+<li><b>блокировка от мировых квестов</b></li>
 <li>похожие ники, реплики по подстрокам</li>
 <li>топы экономики, калибровка, CSV</li></ul></div>
 
-<div class="card"><div class="ico">&#128226;</div><h3>Новости сервера</h3><p>Rich-text объявления с картинкой и расписанием.</p><ul>
+<div class="card reveal"><div class="ico">&#128226;</div><h3>Новости сервера</h3><p>Rich-text объявления с картинкой и расписанием.</p><ul>
 <li>жирный, курсив, подчёркивание, цвет</li>
-<li>картинка 640×160 до 24 КБ (сжатие на лету)</li>
+<li>картинка 640×160 до 24 КБ (сжатие)</li>
 <li>всем / зона / гильдия, защита от дублей</li>
 <li>шаблоны, черновик, «последнее отправленное»</li>
-<li><b>расписание объявлений</b> (интервалы, дни недели)</li>
+<li><b>расписание объявлений</b> (интервалы, дни)</li>
 <li>журнал доставки</li></ul></div>
 
-<div class="card"><div class="ico">&#128172;</div><h3>Чат</h3><p>Игровая переписка с уведомлениями и быстрыми ответами.</p><ul>
+<div class="card reveal"><div class="ico">&#128172;</div><h3>Чат</h3><p>Игровая переписка с уведомлениями и ответами.</p><ul>
 <li>фильтр по каналу и собеседнику</li>
 <li>непрочитанные, звук, онлайн-статус</li>
 <li>ЛС живому игроку, кик / бан из строки</li>
 <li>шаблоны быстрых ответов, игнор / блок</li></ul></div>
 
-<div class="card"><div class="ico">&#128176;</div><h3>Экономика <svg class="spark" width="60" height="16" viewBox="0 0 60 16"><polyline points="0,14 8,11 16,12 24,8 32,9 40,5 48,6 60,2" stroke="#ffd100"/></svg></h3><p>Полный контроль над Claudium и магазином.</p><ul>
+<div class="card reveal"><div class="ico">&#128176;</div><h3>Экономика <svg class="spark" width="60" height="16" viewBox="0 0 60 16"><polyline points="0,14 8,11 16,12 24,8 32,9 40,5 48,6 60,2" stroke="#ffd100"/><circle cx="60" cy="2" r="2.5" fill="#ffd100"/></svg></h3><p>Полный контроль над Claudium и магазином.</p><ul>
 <li>аккаунты и балансы Claudium</li>
 <li>начисление / списание с леджером</li>
 <li>каталог цен, ручные перебития, сброс</li>
@@ -175,124 +236,105 @@ h1,h2,h3,h4{font-family:"Cinzel","Times New Roman",serif}
 <li>топы трат / предметов, иконки</li>
 <li>CSV-выгрузки</li></ul></div>
 
-<div class="card"><div class="ico">&#127744;</div><h3>Порталы и ивенты</h3><p>Открытые порталы с таймерами и координатами.</p><ul>
+<div class="card reveal"><div class="ico">&#127744;</div><h3>Порталы и ивенты</h3><p>Открытые порталы с таймерами и координатами.</p><ul>
 <li>таймеры и координаты</li>
 <li>копирование строки портала в буфер</li>
 <li>журнал событий</li></ul></div>
 
-<div class="card"><div class="ico">&#128200;</div><h3>Графики <svg class="spark" width="60" height="16" viewBox="0 0 60 16"><polyline points="0,10 8,8 16,11 24,6 32,7 40,4 48,5 60,3" stroke="#5b8aff"/></svg></h3><p>Фоновый сэмплер пишет историю в CSV (60 с).</p><ul>
+<div class="card reveal"><div class="ico">&#128200;</div><h3>Графики <svg class="spark" width="60" height="16" viewBox="0 0 60 16"><polyline points="0,10 8,8 16,11 24,6 32,7 40,4 48,5 60,3" stroke="#5b8aff"/><circle cx="60" cy="3" r="2.5" fill="#5b8aff"/></svg></h3><p>Фоновый сэмплер пишет историю в CSV (60 с).</p><ul>
 <li>4 серии: игроки, CPU, RAM, диск + пинг</li>
 <li>диапазоны, дневные сводки</li>
 <li>онлайн по часам, доход Claudium</li>
 <li>экспорт</li></ul></div>
 
-<div class="card"><div class="ico">&#128722;</div><h3>Заявки магазина</h3><p>Одобрение с начислением и анонсом.</p><ul>
+<div class="card reveal"><div class="ico">&#128722;</div><h3>Заявки магазина</h3><p>Одобрение с начислением и анонсом.</p><ul>
 <li>чтение / запись заявок</li>
 <li>одобрение с начислением и анонсом</li>
 <li>отклонение, удаление</li></ul></div>
 
-<div class="card"><div class="ico">&#128269;</div><h3>Аудит</h3><p>Чтение audit.log с фильтрами и статистикой.</p><ul>
+<div class="card reveal"><div class="ico">&#128269;</div><h3>Аудит</h3><p>Чтение audit.log с фильтрами и статистикой.</p><ul>
 <li>фильтры по источнику и действию</li>
 <li>топ IP, топ действий</li>
 <li>подсветка нового, экспорт CSV</li></ul></div>
 
-<div class="card"><div class="ico">&#9881;</div><h3>Настройки</h3><p>Профили серверов, секреты, расписания.</p><ul>
-<li>профили нескольких серверов (переключение)</li>
+<div class="card reveal"><div class="ico">&#9881;</div><h3>Настройки</h3><p>Профили серверов, секреты, расписания.</p><ul>
+<li>профили нескольких серверов</li>
 <li>секреты <b>зашифрованы DPAPI Windows</b></li>
 <li>темы, пороги алертов, авто-рестарт</li>
 <li>все расписания, дневной отчёт в webhook</li>
 <li>защита от потери: конфликт-детект</li></ul></div>
 
-<div class="card"><div class="ico">&#127760;</div><h3>Grafana</h3><p>Ссылка на админскую страницу сервера.</p><ul>
+<div class="card reveal"><div class="ico">&#127760;</div><h3>Grafana</h3><p>Ссылка на админскую страницу сервера.</p><ul>
 <li>открытие встроенной Grafana</li></ul></div>
 
 </div>
 </div>
 
+<div class="divider"></div>
+
 <!-- ГРАФИКИ -->
-<div class="wrap" style="padding-top:0">
-<div class="sec-head">
+<div class="wrap">
+<div class="sec-head reveal">
 <div class="orn">Графики</div>
 <h2>История метрик в реальном времени</h2>
 <p>Фоновый сэмплер пишет данные каждые 60 секунд — дневные сводки, онлайн по часам, доход Claudium.</p>
 </div>
 
 <div class="chart-row">
-  <div class="chart-box">
+  <div class="chart-box reveal">
     <div class="chart-title"><span>&#128101;</span> Онлайн игроков</div>
     <svg viewBox="0 0 400 120" class="chart-svg">
-      <defs>
-        <linearGradient id="fillOnline" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#1eb838" stop-opacity=".35"/>
-          <stop offset="100%" stop-color="#1eb838" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-      <path d="M0,90 L30,85 L60,78 L90,60 L120,55 L150,48 L180,52 L210,40 L240,35 L270,42 L300,30 L330,28 L360,38 L400,32 L400,120 L0,120 Z" fill="url(#fillOnline)"/>
+      <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1eb838" stop-opacity=".35"/><stop offset="100%" stop-color="#1eb838" stop-opacity="0"/></linearGradient></defs>
+      <path d="M0,90 L30,85 L60,78 L90,60 L120,55 L150,48 L180,52 L210,40 L240,35 L270,42 L300,30 L330,28 L360,38 L400,32 L400,120 L0,120 Z" fill="url(#g1)"/>
       <path d="M0,90 L30,85 L60,78 L90,60 L120,55 L150,48 L180,52 L210,40 L240,35 L270,42 L300,30 L330,28 L360,38 L400,32" fill="none" stroke="#1eb838" stroke-width="2"/>
-      <circle cx="400" cy="32" r="4" fill="#1eb838"/>
+      <circle cx="400" cy="32" r="5" fill="#1eb838"><animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite"/></circle>
     </svg>
     <div class="chart-foot"><span class="ok">&#9650; 28 онлайн</span><span>пик: 41</span></div>
   </div>
 
-  <div class="chart-box">
+  <div class="chart-box reveal">
     <div class="chart-title"><span>&#128187;</span> CPU сервера</div>
     <svg viewBox="0 0 400 120" class="chart-svg">
-      <defs>
-        <linearGradient id="fillCpu" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#ffd166" stop-opacity=".3"/>
-          <stop offset="100%" stop-color="#ffd166" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-      <path d="M0,70 L30,65 L60,72 L90,60 L120,58 L150,62 L180,50 L210,55 L240,48 L270,52 L300,45 L330,50 L360,42 L400,48 L400,120 L0,120 Z" fill="url(#fillCpu)"/>
+      <defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffd166" stop-opacity=".3"/><stop offset="100%" stop-color="#ffd166" stop-opacity="0"/></linearGradient></defs>
+      <path d="M0,70 L30,65 L60,72 L90,60 L120,58 L150,62 L180,50 L210,55 L240,48 L270,52 L300,45 L330,50 L360,42 L400,48 L400,120 L0,120 Z" fill="url(#g2)"/>
       <path d="M0,70 L30,65 L60,72 L90,60 L120,58 L150,62 L180,50 L210,55 L240,48 L270,52 L300,45 L330,50 L360,42 L400,48" fill="none" stroke="#ffd166" stroke-width="2"/>
-      <circle cx="400" cy="48" r="4" fill="#ffd166"/>
+      <circle cx="400" cy="48" r="5" fill="#ffd166"><animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite"/></circle>
     </svg>
     <div class="chart-foot"><span>48% сейчас</span><span>пик: 72%</span></div>
   </div>
 
-  <div class="chart-box">
+  <div class="chart-box reveal">
     <div class="chart-title"><span>&#128167;</span> RAM сервера</div>
     <svg viewBox="0 0 400 120" class="chart-svg">
-      <defs>
-        <linearGradient id="fillRam" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#5b8aff" stop-opacity=".3"/>
-          <stop offset="100%" stop-color="#5b8aff" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-      <path d="M0,80 L30,78 L60,75 L90,70 L120,68 L150,65 L180,66 L210,60 L240,58 L270,60 L300,55 L330,52 L360,54 L400,50 L400,120 L0,120 Z" fill="url(#fillRam)"/>
+      <defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5b8aff" stop-opacity=".3"/><stop offset="100%" stop-color="#5b8aff" stop-opacity="0"/></linearGradient></defs>
+      <path d="M0,80 L30,78 L60,75 L90,70 L120,68 L150,65 L180,66 L210,60 L240,58 L270,60 L300,55 L330,52 L360,54 L400,50 L400,120 L0,120 Z" fill="url(#g3)"/>
       <path d="M0,80 L30,78 L60,75 L90,70 L120,68 L150,65 L180,66 L210,60 L240,58 L270,60 L300,55 L330,52 L360,54 L400,50" fill="none" stroke="#5b8aff" stroke-width="2"/>
-      <circle cx="400" cy="50" r="4" fill="#5b8aff"/>
+      <circle cx="400" cy="50" r="5" fill="#5b8aff"><animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite"/></circle>
     </svg>
     <div class="chart-foot"><span>6.2 ГБ</span><span>из 16 ГБ</span></div>
   </div>
 
-  <div class="chart-box">
+  <div class="chart-box reveal">
     <div class="chart-title"><span>&#128176;</span> Доход Claudium</div>
     <svg viewBox="0 0 400 120" class="chart-svg">
-      <defs>
-        <linearGradient id="fillGold" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#ffd100" stop-opacity=".3"/>
-          <stop offset="100%" stop-color="#ffd100" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-      <rect x="10" y="60" width="24" height="60" rx="2" fill="#ffd100" opacity=".7"/>
-      <rect x="44" y="45" width="24" height="75" rx="2" fill="#ffd100" opacity=".7"/>
-      <rect x="78" y="70" width="24" height="50" rx="2" fill="#ffd100" opacity=".7"/>
-      <rect x="112" y="35" width="24" height="85" rx="2" fill="#ffd100" opacity=".8"/>
-      <rect x="146" y="50" width="24" height="70" rx="2" fill="#ffd100" opacity=".7"/>
-      <rect x="180" y="30" width="24" height="90" rx="2" fill="#ffd100" opacity=".85"/>
-      <rect x="214" y="55" width="24" height="65" rx="2" fill="#ffd100" opacity=".7"/>
-      <rect x="248" y="40" width="24" height="80" rx="2" fill="#ffd100" opacity=".8"/>
-      <rect x="282" y="25" width="24" height="95" rx="2" fill="#ffd100" opacity=".9"/>
-      <rect x="316" y="48" width="24" height="72" rx="2" fill="#ffd100" opacity=".75"/>
-      <rect x="350" y="35" width="24" height="85" rx="2" fill="#ffd100" opacity=".85"/>
-      <rect x="384" y="20" width="24" height="100" rx="2" fill="#ffd100"/>
+      <rect x="10" y="60" width="24" height="60" rx="2" fill="#ffd100" opacity=".7"><animate attributeName="height" values="60;65;60" dur="3s" repeatCount="indefinite"/></rect>
+      <rect x="44" y="45" width="24" height="75" rx="2" fill="#ffd100" opacity=".75"><animate attributeName="height" values="75;80;75" dur="3s" repeatCount="indefinite"/></rect>
+      <rect x="78" y="70" width="24" height="50" rx="2" fill="#ffd100" opacity=".65"><animate attributeName="height" values="50;55;50" dur="3s" repeatCount="indefinite"/></rect>
+      <rect x="112" y="35" width="24" height="85" rx="2" fill="#ffd100" opacity=".8"><animate attributeName="height" values="85;90;85" dur="3s" repeatCount="indefinite"/></rect>
+      <rect x="146" y="50" width="24" height="70" rx="2" fill="#ffd100" opacity=".7"><animate attributeName="height" values="70;75;70" dur="3s" repeatCount="indefinite"/></rect>
+      <rect x="180" y="30" width="24" height="90" rx="2" fill="#ffd100" opacity=".85"><animate attributeName="height" values="90;95;90" dur="3s" repeatCount="indefinite"/></rect>
+      <rect x="214" y="55" width="24" height="65" rx="2" fill="#ffd100" opacity=".7"><animate attributeName="height" values="65;70;65" dur="3s" repeatCount="indefinite"/></rect>
+      <rect x="248" y="40" width="24" height="80" rx="2" fill="#ffd100" opacity=".8"><animate attributeName="height" values="80;85;80" dur="3s" repeatCount="indefinite"/></rect>
+      <rect x="282" y="25" width="24" height="95" rx="2" fill="#ffd100" opacity=".9"><animate attributeName="height" values="95;100;95" dur="3s" repeatCount="indefinite"/></rect>
+      <rect x="316" y="48" width="24" height="72" rx="2" fill="#ffd100" opacity=".75"><animate attributeName="height" values="72;77;72" dur="3s" repeatCount="indefinite"/></rect>
+      <rect x="350" y="35" width="24" height="85" rx="2" fill="#ffd100" opacity=".85"><animate attributeName="height" values="85;90;85" dur="3s" repeatCount="indefinite"/></rect>
+      <rect x="384" y="20" width="24" height="100" rx="2" fill="#ffd100"><animate attributeName="height" values="100;105;100" dur="3s" repeatCount="indefinite"/></rect>
     </svg>
     <div class="chart-foot"><span class="ok">+12 400 CLD / день</span><span>за 12 дней</span></div>
   </div>
 </div>
 
-<div class="banner">
+<div class="banner reveal">
 <div class="big">&#128200;</div>
 <div>
 <h3>Дневные сводки и экспорт</h3>
@@ -301,46 +343,45 @@ h1,h2,h3,h4{font-family:"Cinzel","Times New Roman",serif}
 </div>
 </div>
 
+<div class="divider"></div>
+
 <!-- МОНИТОРИНГ -->
-<div class="wrap" style="padding-top:0">
-<div class="sec-head">
+<div class="wrap">
+<div class="sec-head reveal">
 <div class="orn">Мониторинг</div>
 <h2>Всегда в курсе</h2>
 <p>Фоновые задачи работают незаметно, но оповещают обо всём.</p>
 </div>
 <div class="grid g3">
-<div class="card"><div class="ico">&#128276;</div><h3>Алерты</h3><p>Пороговые события с дедупликацией, тостами и звуком.</p></div>
-<div class="card"><div class="ico">&#128225;</div><h3>События</h3><p>Вход / выход, низкий HP, up / down сервера.</p></div>
-<div class="card"><div class="ico">&#128268;</div><h3>Проба портов</h3><p>Постоянная проверка всех ключевых портов.</p></div>
+<div class="card reveal"><div class="ico">&#128276;</div><h3>Алерты</h3><p>Пороговые события с дедупликацией, тостами и звуком.</p></div>
+<div class="card reveal"><div class="ico">&#128225;</div><h3>События</h3><p>Вход / выход, низкий HP, up / down сервера.</p></div>
+<div class="card reveal"><div class="ico">&#128268;</div><h3>Проба портов</h3><p>Постоянная проверка всех ключевых портов.</p></div>
 </div>
 
-<!-- ТАБЛИЦА ПОРТОВ -->
-<div class="tbl" style="margin-top:28px">
+<div class="tbl reveal">
 <table>
 <thead>
 <tr><th>Порт</th><th>Сервис</th><th>Статус</th><th>Проверка</th></tr>
 </thead>
 <tbody>
-<tr><td><b>80</b></td><td>HTTP — сайт</td><td class="ok">&#9679; online</td><td>каждые 15 с</td></tr>
-<tr><td><b>443</b></td><td>HTTPS — сайт</td><td class="ok">&#9679; online</td><td>каждые 15 с</td></tr>
-<tr><td><b>8080</b></td><td>HTTP — API сервера</td><td class="ok">&#9679; online</td><td>каждые 5 с</td></tr>
-<tr><td><b>5432</b></td><td>PostgreSQL</td><td class="ok">&#9679; online</td><td>каждые 30 с</td></tr>
-<tr><td><b>8443</b></td><td>Grafana</td><td class="ok">&#9679; online</td><td>каждые 60 с</td></tr>
+<tr><td><b>80</b></td><td>HTTP — сайт</td><td><span class="status-dot"></span>online</td><td>каждые 15 с</td></tr>
+<tr><td><b>443</b></td><td>HTTPS — сайт</td><td><span class="status-dot"></span>online</td><td>каждые 15 с</td></tr>
+<tr><td><b>8080</b></td><td>HTTP — API сервера</td><td><span class="status-dot"></span>online</td><td>каждые 5 с</td></tr>
+<tr><td><b>5432</b></td><td>PostgreSQL</td><td><span class="status-dot"></span>online</td><td>каждые 30 с</td></tr>
+<tr><td><b>8443</b></td><td>Grafana</td><td><span class="status-dot"></span>online</td><td>каждые 60 с</td></tr>
 </tbody>
 </table>
 </div>
 
-<!-- БАННЕР БЕЗОПАСНОСТИ -->
-<div class="banner" style="margin-top:28px">
+<div class="banner reveal">
 <div class="big">&#128737;</div>
 <div>
 <h3>Безопасность</h3>
-<p>Полный аудит безопасности 0.7.37: 14 уязвимостей исправлены, 0 осталось. Секреты зашифрованы DPAPI Windows. Закрытый набор команд — никакого произвольного shell. Секреты не попадают в логи.</p>
+<p>Полный аудит 0.7.37: 14 уязвимостей исправлены, 0 осталось. Секреты зашифрованы DPAPI Windows. Закрытый набор команд — никакого произвольного shell. Секреты не попадают в логи.</p>
 </div>
 </div>
 
-<!-- БАННЕР ПОРТОВ -->
-<div class="banner">
+<div class="banner reveal">
 <div class="big">&#128268;</div>
 <div>
 <h3>Проба портов в фоне</h3>
@@ -348,8 +389,7 @@ h1,h2,h3,h4{font-family:"Cinzel","Times New Roman",serif}
 </div>
 </div>
 
-<!-- БАННЕР БЭКАПОВ -->
-<div class="banner">
+<div class="banner reveal">
 <div class="big">&#128190;</div>
 <div>
 <h3>Бэкапы и восстановление</h3>
@@ -359,18 +399,39 @@ h1,h2,h3,h4{font-family:"Cinzel","Times New Roman",serif}
 </div>
 
 <!-- CTA -->
-<div class="cta">
-<div class="orn" style="margin-bottom:14px">Готово к работе</div>
+<div class="cta reveal">
+<div class="orn">Готово к работе</div>
 <h2>Один инструмент — весь сервер</h2>
 <p>Всё, что нужно оператору приватного сервера, в одном окне. Без лишнего.</p>
 </div>
 
-</div>
-
+<!-- FOOTER -->
 <div class="foot">
-<p><b>ServerControl RS</b> &middot; v0.7.37 &middot; для Windows 10 / 11</p>
-<p style="margin-top:6px">Панель управления приватным игровым сервером.</p>
+<p><b>ServerControl RS</b> &middot; <span class="ver">v0.7.37</span></p>
+<p style="margin-top:8px">Панель управления приватным игровым сервером &middot; Windows 10 / 11</p>
 </div>
 
+<script>
+// Particles
+(function(){
+var c=document.getElementById('particles');
+for(var i=0;i<30;i++){
+var p=document.createElement('div');
+p.className='particle';
+p.style.left=Math.random()*100+'%';
+p.style.animationDuration=(8+Math.random()*15)+'s';
+p.style.animationDelay=(Math.random()*10)+'s';
+p.style.width=p.style.height=(1+Math.random()*2)+'px';
+c.appendChild(p);
+}
+})();
+
+// Scroll reveal
+(function(){
+var e=document.querySelectorAll('.reveal');
+var o=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('visible');o.unobserve(x.target)}})},{threshold:.1});
+e.forEach(function(x){o.observe(x)});
+})();
+</script>
 </body>
 </html>
