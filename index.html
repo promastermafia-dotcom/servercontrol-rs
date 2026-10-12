@@ -48,6 +48,15 @@ h1,h2,h3,h4{font-family:"Cinzel","Times New Roman",serif}
 .cta{text-align:center;padding:64px 24px;border-top:1px solid #1e1e2a}
 .cta h2{font-size:28px;color:var(--gold);margin-bottom:10px;text-shadow:0 1px 3px #000}
 .cta p{color:var(--sub);font-size:14px;margin-bottom:24px;max-width:480px;margin-left:auto;margin-right:auto}
+.chart-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-bottom:28px}
+.chart-box{background:linear-gradient(170deg,#16161f,#101018);border:1px solid #2a2a3a;border-radius:4px;padding:16px;position:relative;transition:border-color .2s}
+.chart-box:hover{border-color:var(--gold-dark)}
+.chart-box::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold-dark),transparent);opacity:.5}
+.chart-title{font-size:13px;font-weight:700;color:var(--gold);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.chart-title span{font-size:16px}
+.chart-svg{width:100%;height:auto;display:block}
+.chart-foot{display:flex;justify-content:space-between;font-size:11px;color:var(--sub);margin-top:8px}
+.chart-foot .ok{color:var(--good);font-weight:700}
 .foot{text-align:center;padding:40px 24px;border-top:1px solid #1e1e2a;color:var(--sub);font-size:13px}
 .foot b{color:var(--gold-dim);font-family:"Cinzel",serif}
 @media(max-width:700px){.medal-row{gap:12px}.medal{width:72px}.g2,.g3{grid-template-columns:1fr}}
@@ -187,6 +196,98 @@ h1,h2,h3,h4{font-family:"Cinzel","Times New Roman",serif}
 <div class="card"><div class="ico">&#127760;</div><h3>Grafana</h3><p>Ссылка на админскую страницу сервера.</p><ul>
 <li>открытие встроенной Grafana</li></ul></div>
 
+</div>
+</div>
+
+<!-- ГРАФИКИ -->
+<div class="wrap" style="padding-top:0">
+<div class="sec-head">
+<div class="orn">Графики</div>
+<h2>История метрик в реальном времени</h2>
+<p>Фоновый сэмплер пишет данные каждые 60 секунд — дневные сводки, онлайн по часам, доход Claudium.</p>
+</div>
+
+<div class="chart-row">
+  <div class="chart-box">
+    <div class="chart-title"><span>&#128101;</span> Онлайн игроков</div>
+    <svg viewBox="0 0 400 120" class="chart-svg">
+      <defs>
+        <linearGradient id="fillOnline" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1eb838" stop-opacity=".35"/>
+          <stop offset="100%" stop-color="#1eb838" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="M0,90 L30,85 L60,78 L90,60 L120,55 L150,48 L180,52 L210,40 L240,35 L270,42 L300,30 L330,28 L360,38 L400,32 L400,120 L0,120 Z" fill="url(#fillOnline)"/>
+      <path d="M0,90 L30,85 L60,78 L90,60 L120,55 L150,48 L180,52 L210,40 L240,35 L270,42 L300,30 L330,28 L360,38 L400,32" fill="none" stroke="#1eb838" stroke-width="2"/>
+      <circle cx="400" cy="32" r="4" fill="#1eb838"/>
+    </svg>
+    <div class="chart-foot"><span class="ok">&#9650; 28 онлайн</span><span>пик: 41</span></div>
+  </div>
+
+  <div class="chart-box">
+    <div class="chart-title"><span>&#128187;</span> CPU сервера</div>
+    <svg viewBox="0 0 400 120" class="chart-svg">
+      <defs>
+        <linearGradient id="fillCpu" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ffd166" stop-opacity=".3"/>
+          <stop offset="100%" stop-color="#ffd166" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="M0,70 L30,65 L60,72 L90,60 L120,58 L150,62 L180,50 L210,55 L240,48 L270,52 L300,45 L330,50 L360,42 L400,48 L400,120 L0,120 Z" fill="url(#fillCpu)"/>
+      <path d="M0,70 L30,65 L60,72 L90,60 L120,58 L150,62 L180,50 L210,55 L240,48 L270,52 L300,45 L330,50 L360,42 L400,48" fill="none" stroke="#ffd166" stroke-width="2"/>
+      <circle cx="400" cy="48" r="4" fill="#ffd166"/>
+    </svg>
+    <div class="chart-foot"><span>48% сейчас</span><span>пик: 72%</span></div>
+  </div>
+
+  <div class="chart-box">
+    <div class="chart-title"><span>&#128167;</span> RAM сервера</div>
+    <svg viewBox="0 0 400 120" class="chart-svg">
+      <defs>
+        <linearGradient id="fillRam" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#5b8aff" stop-opacity=".3"/>
+          <stop offset="100%" stop-color="#5b8aff" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="M0,80 L30,78 L60,75 L90,70 L120,68 L150,65 L180,66 L210,60 L240,58 L270,60 L300,55 L330,52 L360,54 L400,50 L400,120 L0,120 Z" fill="url(#fillRam)"/>
+      <path d="M0,80 L30,78 L60,75 L90,70 L120,68 L150,65 L180,66 L210,60 L240,58 L270,60 L300,55 L330,52 L360,54 L400,50" fill="none" stroke="#5b8aff" stroke-width="2"/>
+      <circle cx="400" cy="50" r="4" fill="#5b8aff"/>
+    </svg>
+    <div class="chart-foot"><span>6.2 ГБ</span><span>из 16 ГБ</span></div>
+  </div>
+
+  <div class="chart-box">
+    <div class="chart-title"><span>&#128176;</span> Доход Claudium</div>
+    <svg viewBox="0 0 400 120" class="chart-svg">
+      <defs>
+        <linearGradient id="fillGold" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ffd100" stop-opacity=".3"/>
+          <stop offset="100%" stop-color="#ffd100" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <rect x="10" y="60" width="24" height="60" rx="2" fill="#ffd100" opacity=".7"/>
+      <rect x="44" y="45" width="24" height="75" rx="2" fill="#ffd100" opacity=".7"/>
+      <rect x="78" y="70" width="24" height="50" rx="2" fill="#ffd100" opacity=".7"/>
+      <rect x="112" y="35" width="24" height="85" rx="2" fill="#ffd100" opacity=".8"/>
+      <rect x="146" y="50" width="24" height="70" rx="2" fill="#ffd100" opacity=".7"/>
+      <rect x="180" y="30" width="24" height="90" rx="2" fill="#ffd100" opacity=".85"/>
+      <rect x="214" y="55" width="24" height="65" rx="2" fill="#ffd100" opacity=".7"/>
+      <rect x="248" y="40" width="24" height="80" rx="2" fill="#ffd100" opacity=".8"/>
+      <rect x="282" y="25" width="24" height="95" rx="2" fill="#ffd100" opacity=".9"/>
+      <rect x="316" y="48" width="24" height="72" rx="2" fill="#ffd100" opacity=".75"/>
+      <rect x="350" y="35" width="24" height="85" rx="2" fill="#ffd100" opacity=".85"/>
+      <rect x="384" y="20" width="24" height="100" rx="2" fill="#ffd100"/>
+    </svg>
+    <div class="chart-foot"><span class="ok">+12 400 CLD / день</span><span>за 12 дней</span></div>
+  </div>
+</div>
+
+<div class="banner">
+<div class="big">&#128200;</div>
+<div>
+<h3>Дневные сводки и экспорт</h3>
+<p>Каждый день — сводка по игрокам, CPU, RAM и доходу. Любой диапазон, экспорт в CSV. Онлайн по часам показывает, когда на сервере пик.</p>
+</div>
 </div>
 </div>
 
