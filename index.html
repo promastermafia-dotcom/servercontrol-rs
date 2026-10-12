@@ -170,6 +170,18 @@ h2{font-family:"Cinzel",serif;font-size:24px;font-weight:700;color:var(--txt);ma
 .reveal{opacity:0;transform:translateY(24px);transition:all .5s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
+/* === SCREENSHOT === */
+.shot-wrap{max-width:1100px;margin:0 auto;padding:0 24px 20px;position:relative;z-index:1}
+.shot-frame{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--panel);box-shadow:0 8px 40px var(--shadow),0 0 0 1px color-mix(in srgb,var(--accent) 10%,transparent);transition:all .3s}
+.shot-frame:hover{box-shadow:0 12px 56px var(--shadow),0 0 60px color-mix(in srgb,var(--accent) 8%,transparent)}
+.shot-bar{display:flex;align-items:center;gap:6px;padding:10px 14px;background:linear-gradient(180deg,var(--card-hover),var(--panel));border-bottom:1px solid var(--border)}
+.shot-dot{width:10px;height:10px;border-radius:50%}
+.shot-dot.red{background:#ff5f57}
+.shot-dot.yellow{background:#febc2e}
+.shot-dot.green{background:#28c840}
+.shot-title{margin-left:12px;font-size:12px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.shot-img{width:100%;display:block}
+
 @media(max-width:700px){.stats-row{gap:12px}.stat-item{min-width:90px;padding:12px 16px}.g2,.g3{grid-template-columns:1fr}.banner{flex-direction:column;text-align:center}.hero{padding:60px 16px 36px}}
 </style>
 </head>
@@ -193,6 +205,14 @@ h2{font-family:"Cinzel",serif;font-size:24px;font-weight:700;color:var(--txt);ma
     <div class="pill"><b>0</b> уязвимостей</div>
     <div class="pill"><b>1 149</b> тестов</div>
     <div class="pill"><b>15</b> вкладок</div>
+  </div>
+</div>
+
+<!-- SCREENSHOT -->
+<div class="shot-wrap reveal">
+  <div class="shot-frame">
+    <div class="shot-bar"><span class="shot-dot red"></span><span class="shot-dot yellow"></span><span class="shot-dot green"></span><span class="shot-title">ServerControl RS — Панель управления сервером WoC</span></div>
+    <img src="panel.png" alt="Панель ServerControl RS" class="shot-img" loading="lazy">
   </div>
 </div>
 
