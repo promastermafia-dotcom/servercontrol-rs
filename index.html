@@ -156,6 +156,23 @@ h2{font-family:"Cinzel",serif;font-size:24px;font-weight:700;color:var(--txt);ma
 .faq-item.open .faq-a{max-height:200px}
 .faq-a-inner{padding:0 18px 14px;line-height:1.7}
 
+/* === GALLERY === */
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.gal-item{border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--panel);cursor:pointer;transition:all .25s;position:relative}
+.gal-item:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 8px 32px var(--shadow)}
+.gal-item img{width:100%;display:block;aspect-ratio:16/10;object-fit:cover;object-position:top left}
+.gal-cap{padding:10px 14px;font-size:12px;color:var(--sub);display:flex;align-items:center;gap:8px;background:var(--card);border-top:1px solid var(--border)}
+.gal-cap span{font-size:14px}
+/* Lightbox */
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:200;display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;padding:24px;backdrop-filter:blur(6px)}
+.lb.open{display:flex}
+.lb img{max-width:92vw;max-height:80vh;border-radius:10px;border:1px solid var(--border);box-shadow:0 12px 60px rgba(0,0,0,.7)}
+.lb-close{position:absolute;top:18px;right:22px;width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--panel);color:var(--txt);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.lb-close:hover{background:var(--bad);border-color:var(--bad);color:#fff}
+.lb-cap{color:var(--sub);font-size:14px}
+
+@media(max-width:700px){.gal{grid-template-columns:1fr}}
+
 /* === CTA === */
 .cta{text-align:center;padding:60px 24px;border-top:1px solid var(--border)}
 .cta h2{font-size:26px;margin-bottom:10px}
@@ -223,6 +240,82 @@ h2{font-family:"Cinzel",serif;font-size:24px;font-weight:700;color:var(--txt);ma
   <div class="stat-item"><div class="stat-num" data-count="424">0</div><div class="stat-lbl">Rust-тестов</div></div>
   <div class="stat-item"><div class="stat-num" data-count="725">0</div><div class="stat-lbl">фронт-тестов</div></div>
   <div class="stat-item"><div class="stat-num" data-count="14">0</div><div class="stat-lbl">фикс. аудита</div></div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ГАЛЕРЕЯ -->
+<div class="wrap">
+<div class="sec-head reveal">
+<div class="sec-tag">Галерея</div>
+<h2>Все вкладки панели</h2>
+<p>Нажмите на скриншот, чтобы открыть полный размер. Данные с живого сервера 0.44.6.</p>
+</div>
+<div class="gal">
+  <div class="gal-item reveal" data-img="panel_dash.png" data-cap="Дашборд — состояние сервера, ресурсы, история">
+    <img src="panel_dash.png" alt="Дашборд" loading="lazy">
+    <div class="gal-cap"><span>&#128202;</span> Дашборд</div>
+  </div>
+  <div class="gal-item reveal" data-img="panel_players.png" data-cap="Игроки онлайн — фильтры, классы, зоны, гильдии">
+    <img src="panel_players.png" alt="Игроки онлайн" loading="lazy">
+    <div class="gal-cap"><span>&#128101;</span> Игроки онлайн</div>
+  </div>
+  <div class="gal-item reveal" data-img="panel_map.png" data-cap="Карта зон — живая карта континента с игроками и порталами">
+    <img src="panel_map.png" alt="Карта зон" loading="lazy">
+    <div class="gal-cap"><span>&#128506;</span> Карта зон</div>
+  </div>
+  <div class="gal-item reveal" data-img="panel_logs.png" data-cap="Логи сервера — семь логов, фильтры, автоскролл">
+    <img src="panel_logs.png" alt="Логи сервера" loading="lazy">
+    <div class="gal-cap"><span>&#128220;</span> Логи сервера</div>
+  </div>
+  <div class="gal-item reveal" data-img="panel_manage.png" data-cap="Управление — стоп/старт, бэкапы, баны, плановый рестарт">
+    <img src="panel_manage.png" alt="Управление сервером" loading="lazy">
+    <div class="gal-cap"><span>&#127918;</span> Управление</div>
+  </div>
+  <div class="gal-item reveal" data-img="panel_antibot.png" data-cap="Антибот — детектор, подозрительные, калибровка">
+    <img src="panel_antibot.png" alt="Антибот" loading="lazy">
+    <div class="gal-cap"><span>&#128737;</span> Антибот</div>
+  </div>
+  <div class="gal-item reveal" data-img="panel_news.png" data-cap="Новости сервера — rich-text объявления с расписанием">
+    <img src="panel_news.png" alt="Новости сервера" loading="lazy">
+    <div class="gal-cap"><span>&#128226;</span> Новости сервера</div>
+  </div>
+  <div class="gal-item reveal" data-img="panel_chat.png" data-cap="Чат — переписка, собеседники, быстрые ответы">
+    <img src="panel_chat.png" alt="Чат" loading="lazy">
+    <div class="gal-cap"><span>&#128172;</span> Чат</div>
+  </div>
+  <div class="gal-item reveal" data-img="panel_economy.png" data-cap="Экономика — аккаунты Claudium, каталог, леджер, магазин">
+    <img src="panel_economy.png" alt="Экономика" loading="lazy">
+    <div class="gal-cap"><span>&#128176;</span> Экономика</div>
+  </div>
+  <div class="gal-item reveal" data-img="panel_portals.png" data-cap="Порталы и ивенты — открытые порталы с таймерами">
+    <img src="panel_portals.png" alt="Порталы и ивенты" loading="lazy">
+    <div class="gal-cap"><span>&#127744;</span> Порталы и ивенты</div>
+  </div>
+  <div class="gal-item reveal" data-img="panel_charts.png" data-cap="Графики — история CPU, RAM, онлайн, пинг">
+    <img src="panel_charts.png" alt="Графики" loading="lazy">
+    <div class="gal-cap"><span>&#128200;</span> Графики</div>
+  </div>
+  <div class="gal-item reveal" data-img="panel_audit.png" data-cap="Аудит — журнал действий с фильтрами и CSV">
+    <img src="panel_audit.png" alt="Аудит" loading="lazy">
+    <div class="gal-cap"><span>&#128269;</span> Аудит</div>
+  </div>
+  <div class="gal-item reveal" data-img="panel_requests.png" data-cap="Заявки магазина — одобрение с начислением">
+    <img src="panel_requests.png" alt="Заявки магазина" loading="lazy">
+    <div class="gal-cap"><span>&#128722;</span> Заявки</div>
+  </div>
+  <div class="gal-item reveal" data-img="panel_settings.png" data-cap="Настройки — профили, секреты DPAPI, расписания">
+    <img src="panel_settings.png" alt="Настройки" loading="lazy">
+    <div class="gal-cap"><span>&#9881;</span> Настройки</div>
+  </div>
+</div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb">
+  <button class="lb-close" id="lb-close">&times;</button>
+  <img id="lb-img" src="" alt="">
+  <div class="lb-cap" id="lb-cap"></div>
 </div>
 
 <div class="divider"></div>
@@ -500,6 +593,17 @@ document.querySelectorAll('.prog-fill').forEach(function(x){progObs.observe(x)})
 document.querySelectorAll('.faq-q').forEach(function(q){
 q.addEventListener('click',function(){q.parentElement.classList.toggle('open')});
 });
+
+// Gallery lightbox
+var lb=document.getElementById('lb'),lbImg=document.getElementById('lb-img'),lbCap=document.getElementById('lb-cap');
+document.querySelectorAll('.gal-item').forEach(function(item){
+item.addEventListener('click',function(){
+lbImg.src=item.dataset.img;lbCap.textContent=item.dataset.cap||'';lb.classList.add('open');
+});
+});
+document.getElementById('lb-close').addEventListener('click',function(){lb.classList.remove('open')});
+lb.addEventListener('click',function(e){if(e.target===lb)lb.classList.remove('open')});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')lb.classList.remove('open')});
 </script>
 </body>
 </html>
